@@ -8,7 +8,7 @@ class ResponseController {
             if(!req.params.formId) { throw { code: 400, message: "ID_REQUIRED" } }
             if(!mongoose.Types.ObjectId.isValid(req.params.formId)) { throw { code: 400, message: "INVALID_ID" } }
 
-            const form = await Form.findOne({ _id: req.params.formId })
+            const form = await Form.findOne({ _id: req.params.formId, userId: req.JWT.id })
             if(!form) { throw { code: 404, message: "FORM_NOT_FOUND" } }
 
             const answers = await Answer.find({ formId: req.params.formId })
@@ -35,7 +35,7 @@ class ResponseController {
             if(!req.params.formId) { throw { code: 400, message: "ID_REQUIRED" } }
             if(!mongoose.Types.ObjectId.isValid(req.params.formId)) { throw { code: 400, message: "INVALID_ID" } }
 
-            const form = await Form.findOne({ _id: req.params.formId })
+            const form = await Form.findOne({ _id: req.params.formId, userId: req.JWT.id })
             if(!form) { throw { code: 404, message: "FORM_NOT_FOUND" } }
 
             const answers = await Answer.find({ formId: req.params.formId })
