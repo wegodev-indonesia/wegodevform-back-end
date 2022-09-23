@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import Form from "../models/Form.js";
 
-const allowedTypes = ["Text", "Radio", "Checkbox", "Dropdown"];
+const allowedTypes = ["Text", "Email", "Radio", "Checkbox", "Dropdown"];
 
 class QuestionController {
 

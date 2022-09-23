@@ -1,6 +1,5 @@
 //check answer.questionId exist in questions id
-const isQuestionIdNotValid = async (forms, answers) => {
-    //find value empty
+const questionIdNotValid = async (forms, answers) => {
     const notValid = answers.filter((answer) => {
         let question = forms.questions.some((question) => question.id == answer.questionId)
 
@@ -12,4 +11,4 @@ const isQuestionIdNotValid = async (forms, answers) => {
     return notValid.length > 0 ? true : false
 }
 
-export default isQuestionIdNotValid;
+export default questionIdNotValid;

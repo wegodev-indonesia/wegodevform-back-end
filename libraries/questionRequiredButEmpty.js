@@ -1,6 +1,5 @@
 //if question required then answer.value cant be empty
-const isQuestionRequiredEmpty = async (forms, answers) => {
-    //find value empty
+const questionRequiredButEmpty = async (forms, answers) => {
     const found = forms.questions.filter((question) => {
         if (question.required === true) {
             const answer = answers.find((answer) => answer.questionId == question.id);
@@ -14,4 +13,4 @@ const isQuestionRequiredEmpty = async (forms, answers) => {
     return found.length > 0 ? found[0].question : false
 }
 
-export default isQuestionRequiredEmpty;
+export default questionRequiredButEmpty;

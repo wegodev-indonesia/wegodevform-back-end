@@ -1,8 +1,7 @@
 //is option.value exist in options
-const isOptionValueExist = async (forms, answers) => {
+const optionValueNotExist = async (forms, answers) => {
     const questions = forms.questions
 
-    //find value empty
     const found = questions.filter(question => {
         //just check if question type is checkbox, radio or dropdown
         if(question.type === "Radio" || question.type === "Dropdown") {
@@ -34,4 +33,4 @@ const isOptionValueExist = async (forms, answers) => {
     return found.length > 0 ? found[0].question : false
 }
 
-export default isOptionValueExist;
+export default optionValueNotExist;

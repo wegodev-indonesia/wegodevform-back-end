@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
 import Form from "../models/Form.js";
 import Answer from "../models/Answer.js";
-import isQuestionRequiredEmpty from "../libraries/isQuestionRequiredEmpty.js";
-import isQuestionIdNotValid from "../libraries/isQuestionIdNotValid.js";
-import isAnswerDuplicated from "../libraries/isAnswerDuplicated.js";
-import isOptionValueExist from "../libraries/isOptionValueExist.js";
+import questionRequiredButEmpty from "../libraries/questionRequiredButEmpty.js";
+import questionIdNotValid from "../libraries/questionIdNotValid.js";
+import answerDuplicated from "../libraries/answerDuplicated.js";
+import optionValueNotExist from "../libraries/optionValueNotExist.js";
+import emailNotValid from "../libraries/emailNotValid.js";
 
 class AnswerController {
     async store(req, res) {
@@ -15,17 +16,20 @@ class AnswerController {
             const forms = await Form.findById(req.params.formId)
             if(!forms) { throw { code: 404, message: "FORM_NOT_FOUND" } }
 
-            const isDuplicate = await isAnswerDuplicated(req.body.answers)
+            const isDuplicate = await answerDuplicated(req.body.answers)
             if(isDuplicate) { throw { code: 400, message: "ANSWER_DUPLICATED" } }
 
-            const notValid = await isQuestionIdNotValid(forms, req.body.answers)
-            if(notValid) { throw { code: 400, message: "QUESTION_NOT_FOUND" } }
+            const questionNotValid = await questionIdNotValid(forms, req.body.answers)
+            if(questionNotValid) { throw { code: 400, message: "QUESTION_NOT_FOUND" } }
 
-            const questionRequiredEmpty = await isQuestionRequiredEmpty(forms, req.body.answers)
+            const questionRequiredEmpty = await questionRequiredButEmpty(forms, req.body.answers)
             if(questionRequiredEmpty) { throw { code: 428, question: questionRequiredEmpty, message: "QUESTION_REQUIRED" } }
 
-            const valueNotExist = await isOptionValueExist(forms, req.body.answers)
-            if(valueNotExist) { throw { code: 400, question: valueNotExist, message: "VALUE_IS_NOT_EXIST_IN_OPTIONS" } }
+            const optionNotExist = await optionValueNotExist(forms, req.body.answers)
+            if(optionNotExist) { throw { code: 400, question: optionNotExist, message: "OPTION_VALUE_IS_NOT_EXIST" } }
+            
+            const emailNotValidExist = await emailNotValid(forms, req.body.answers)
+            if(emailNotValidExist) { throw { code: 400, question: emailNotValidExist, message: "EMAIL_IS_NOT_VALID" } }
 
             let fields = {};
             req.body.answers.forEach((answer) => {

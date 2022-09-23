@@ -1,5 +1,5 @@
 import User from '../models/User.js'
-import isEmailExist from '../libraries/isEmailExist.js'
+import emailExist from '../libraries/emailExist.js'
 import bcrypt from 'bcrypt'
 import jsonwebtoken from 'jsonwebtoken'
 import dotenv from 'dotenv'
@@ -34,8 +34,8 @@ class AuthController {
             }
 
             //check is email exist
-            const email = await isEmailExist(req.body.email);
-            if(email) { throw { code: 409, message: "EMAIL_EXIST" } }
+            const isEmailExist = await emailExist(req.body.email);
+            if(isEmailExist) { throw { code: 409, message: "EMAIL_EXIST" } }
 
             let salt = await bcrypt.genSalt(10);
             let hash = await bcrypt.hash(req.body.password, salt);
