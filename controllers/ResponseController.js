@@ -43,6 +43,7 @@ class ResponseController {
 
             const summaries = form.questions.map((question) => {
                 let summary = {
+                    type: question.type,
                     questionId: question.id,
                     question: question.question,
                     answers: answers.map((answer) => answer[question.id] )
