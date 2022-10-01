@@ -14,11 +14,6 @@ const Schema = mongoose.Schema({
     email:{
         type: String,
     },
-    role:{
-        type: String,
-        enum: ['admin', 'cashier', 'employee'],
-        default: 'employee',
-    },
     status:{
         type: String,
         enum: ['active', 'inactive'],
