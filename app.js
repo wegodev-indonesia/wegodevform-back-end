@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv'
-import { connection } from './connection.js';
+import connection from './connection.js';
 import cors from 'cors';
 import indexRouter from './routes/index.js';
 

@@ -4,14 +4,14 @@ import mongoose from 'mongoose';
 const env = dotenv.config().parsed;
 
 const connection = () => {
-    mongoose.connect(`${env.MONGODB_URI}${env.MONGODB_HOST}:${env.MONGODB_PORT}`, { 
-        dbName: env.MONGODB_DB_NAME,
+    mongoose.connect(`mongodb://localhost:270127`, { 
+        dbName: 'wegodevForm',
     })
     const connection = mongoose.connection;
     connection.on('error', console.error.bind(console, 'connection error:'));
-    connection.once('open', function() {
+    connection.once('open', () => {
         console.log('Connected to MongoDB');
     });
 }
 
-export { connection };
+export default connection;
