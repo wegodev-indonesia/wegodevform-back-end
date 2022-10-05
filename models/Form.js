@@ -29,4 +29,12 @@ const Schema = mongoose.Schema({
 
 Schema.plugin(mongoosePaginate);
 
+Schema.virtual('answers', {
+    ref: 'Answer', // The model to use
+    localField: '_id', // Find people where `localField`
+    foreignField: 'formId', // is equal to `foreignField`
+});
+
+Schema.set('toJSON', { virtuals: true });
+
 export default mongoose.model('Form', Schema);

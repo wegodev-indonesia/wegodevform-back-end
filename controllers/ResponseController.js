@@ -8,18 +8,15 @@ class ResponseController {
             if(!req.params.formId) { throw { code: 400, message: "ID_REQUIRED" } }
             if(!mongoose.Types.ObjectId.isValid(req.params.formId)) { throw { code: 400, message: "INVALID_ID" } }
 
-            const form = await Form.findOne({ _id: req.params.formId, userId: req.JWT.id })
+            //populate relation with answers
+            const form = await Form.findOne({ _id: req.params.formId, userId: req.JWT.id }).populate('answers')
             if(!form) { throw { code: 404, message: "FORM_NOT_FOUND" } }
-
-            const answers = await Answer.find({ formId: req.params.formId })
-            if(!answers) { throw { code: 404, message: "LIST_NOT_FOUND" } }
 
             res.status(200).json({
                 status: true,
                 message: "LIST_FOUND",
-                total: answers.length,
-                form,
-                answers
+                total: form.answers.length,
+                form
             })
         } catch (err) {
             res.status(err.code || 500)
@@ -35,18 +32,15 @@ class ResponseController {
             if(!req.params.formId) { throw { code: 400, message: "ID_REQUIRED" } }
             if(!mongoose.Types.ObjectId.isValid(req.params.formId)) { throw { code: 400, message: "INVALID_ID" } }
 
-            const form = await Form.findOne({ _id: req.params.formId, userId: req.JWT.id })
+            const form = await Form.findOne({ _id: req.params.formId, userId: req.JWT.id }).populate('answers')
             if(!form) { throw { code: 404, message: "FORM_NOT_FOUND" } }
-
-            const answers = await Answer.find({ formId: req.params.formId })
-            if(!answers) { throw { code: 404, message: "SUMMARY_NOT_FOUND" } }
 
             const summaries = form.questions.map((question) => {
                 let summary = {
                     type: question.type,
                     questionId: question.id,
                     question: question.question,
-                    answers: answers.map((answer) => answer[question.id] )
+                    answers: form.answers.map((answer) => answer[question.id] )
                 }
 
                 return summary
@@ -55,7 +49,7 @@ class ResponseController {
             res.status(200).json({
                 status: true,
                 message: "SUMMARY_FOUND",
-                total: answers.length,
+                total: form.answers.length,
                 summaries
             })
         } catch (err) {
