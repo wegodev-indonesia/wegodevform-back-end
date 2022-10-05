@@ -13,6 +13,7 @@ const Schema = mongoose.Schema({
     },
     email:{
         type: String,
+        unique: true,
     },
     status:{
         type: String,
