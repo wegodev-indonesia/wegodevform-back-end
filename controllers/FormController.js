@@ -60,14 +60,15 @@ class FormController {
         }
     }
     
-    //for fill forms (answer), everyone can access
+    //for update only
+    //seperate for update and answer (user)
     async show(req, res) {
         try{
             //show one form
             if(!req.params.id) { throw { code: 428, message: "ID_REQUIRED" } }
             if(!mongoose.Types.ObjectId.isValid(req.params.id)) { throw { code: 400, message: "INVALID_ID" } }
 
-            const form = await Form.findOne({ _id: req.params.id });
+            const form = await Form.findOne({ _id: req.params.id, userId: req.JWT.id });
             if(!form) { throw { code: 404, message: "FORM_NOT_FOUND" } }
 
             res.status(200).json({
