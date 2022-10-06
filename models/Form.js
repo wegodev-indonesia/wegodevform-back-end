@@ -16,6 +16,9 @@ const Schema = mongoose.Schema({
     questions:{
         type: Array,
     },
+    invites:{
+        type: Array,
+    },
     createdAt:{
         type: Number
     },

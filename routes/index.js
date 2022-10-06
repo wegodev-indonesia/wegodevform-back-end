@@ -6,6 +6,7 @@ import Question from '../controllers/QuestionController.js';
 import Option from '../controllers/OptionController.js';
 import Answer from '../controllers/AnswerController.js';
 import Response from '../controllers/ResponseController.js';
+import Invite from '../controllers/InviteController.js';
 
 var router = express.Router();
 
@@ -32,10 +33,13 @@ router.post('/forms/:id/questions/:questionId/options', jwtAuth(), Option.store)
 router.put('/forms/:id/questions/:questionId/options/:optionId', jwtAuth(), Option.update); //update options
 router.delete('/forms/:id/questions/:questionId/options/:optionId', jwtAuth(), Option.destroy); //delete options
 
+//invite
+router.get('/forms/:id/invites', jwtAuth(), Invite.index);
+router.post('/forms/:id/invites', jwtAuth(), Invite.store);
+router.delete('/forms/:id/invites', jwtAuth(), Invite.destroy);
+
 //answer
 router.post('/answers/:formId', jwtAuth(), Answer.store);
-// router.put('/answers/:formId', jwtAuth(), Answer.update);
-// router.delete('/answers/:formId', jwtAuth(), Answer.destroy);
 
 //summary
 router.get('/responses/:formId/summaries', jwtAuth(), Response.summaries);
