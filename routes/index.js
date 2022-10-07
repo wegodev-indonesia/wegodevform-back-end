@@ -39,6 +39,7 @@ router.post('/forms/:id/invites', jwtAuth(), Invite.store);
 router.delete('/forms/:id/invites', jwtAuth(), Invite.destroy);
 
 //answer
+router.get('/answers/:formId', jwtAuth(), Answer.show);
 router.post('/answers/:formId', jwtAuth(), Answer.store);
 
 //summary

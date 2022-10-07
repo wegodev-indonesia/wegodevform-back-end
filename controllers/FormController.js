@@ -42,6 +42,7 @@ class FormController {
                 title: "Untitled Form",
                 description: null,
                 options: [],
+                public: true
             });
             const form = await newForm.save();
             if(!form) { throw { code: 500, message: "FAILED_CREATE_FORM" } }

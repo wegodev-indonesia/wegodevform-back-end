@@ -19,6 +19,9 @@ const Schema = mongoose.Schema({
     invites:{
         type: Array,
     },
+    public:{
+        type: Boolean,
+    },
     createdAt:{
         type: Number
     },
