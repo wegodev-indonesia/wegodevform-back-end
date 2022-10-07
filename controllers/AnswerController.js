@@ -21,9 +21,9 @@ class AnswerController {
             //get email from jwt
             const user = await User.findOne({ _id: req.JWT.id });
 
-            //if public false, pass this
-            if(form.public === false) {
-                //check is user invited
+            //if is not form owner && is not public
+            if(req.JWT.id != form.userId && form.public === false) {
+                //then check is user invited
                 if(!form.invites.includes(user.email)){ throw { code: 401, message: "YOU_ARE_NOT_INVITED" } }
             }
 
