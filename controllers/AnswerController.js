@@ -4,7 +4,7 @@ import Answer from "../models/Answer.js";
 import User from "../models/User.js";
 import questionRequiredButEmpty from "../libraries/questionRequiredButEmpty.js";
 import questionIdNotValid from "../libraries/questionIdNotValid.js";
-import answerDuplicated from "../libraries/answerDuplicated.js";
+import answerDuplicated from "../libraries/answerDuplicate.js";
 import optionValueNotExist from "../libraries/optionValueNotExist.js";
 import emailNotValid from "../libraries/emailNotValid.js";
 
@@ -17,7 +17,7 @@ class AnswerController {
             const forms = await Form.findById(req.params.formId)
             if(!forms) { throw { code: 404, message: "FORM_NOT_FOUND" } }
 
-            const isDuplicate = await answerDuplicated(req.body.answers)
+            const isDuplicate = await answerDuplicate(req.body.answers)
             if(isDuplicate) { throw { code: 400, message: "ANSWER_DUPLICATED" } }
 
             const questionNotValid = await questionIdNotValid(forms, req.body.answers)
