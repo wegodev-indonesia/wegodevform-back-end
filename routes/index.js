@@ -21,6 +21,7 @@ router.post('/forms', jwtAuth(), Form.store);
 router.get('/forms/:id', jwtAuth(), Form.show);
 router.put('/forms/:id', jwtAuth(), Form.update);
 router.delete('/forms/:id', jwtAuth(), Form.destroy);
+router.get('/forms/:id/users', jwtAuth(), Form.showToUser);
 
 //question
 router.get('/forms/:id/questions', jwtAuth(), Question.index);
@@ -39,7 +40,6 @@ router.post('/forms/:id/invites', jwtAuth(), Invite.store);
 router.delete('/forms/:id/invites', jwtAuth(), Invite.destroy);
 
 //answer
-router.get('/answers/:formId', jwtAuth(), Answer.show);
 router.post('/answers/:formId', jwtAuth(), Answer.store);
 
 //summary
