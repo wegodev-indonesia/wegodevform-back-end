@@ -4,7 +4,7 @@ import Answer from "../models/Answer.js";
 import User from "../models/User.js";
 import questionRequiredButEmpty from "../libraries/questionRequiredButEmpty.js";
 import questionIdNotValid from "../libraries/questionIdNotValid.js";
-import answerDuplicated from "../libraries/answerDuplicate.js";
+import answerDuplicate from "../libraries/answerDuplicate.js";
 import optionValueNotExist from "../libraries/optionValueNotExist.js";
 import emailNotValid from "../libraries/emailNotValid.js";
 
