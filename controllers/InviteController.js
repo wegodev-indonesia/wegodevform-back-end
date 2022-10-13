@@ -40,7 +40,7 @@ class InviteController {
             if(user) { throw { code: 400, message: "CANNOT_INVITE_YOUR_SELF" } }
             
             //check is email invited before
-            const userInvited = await Form.findOne({ invites: {"$in": req.body.email} });
+            const userInvited = await Form.findOne({ _id: req.params.id, userId: req.JWT.id, invites: {"$in": req.body.email} });
             if(userInvited) { throw { code: 409, message: "EMAIL_INVITED" } }
             
             //is email valid?
