@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 const env = dotenv.config().parsed;
 
 const connection = () => {
-    mongoose.connect(`${env.MONGODB_URI}${env.MONGODB_HOST}:${env.MONGODB_PORT}`, { 
+    mongoose.connect(`${env.MONGODB_URI}${env.MONGODB_USERNAME}:${env.MONGODB_PASSWORD}@${env.MONGODB_HOST}:${env.MONGODB_PORT}`, { 
         dbName: `${env.MONGODB_DB_NAME}`,
     })
     const connection = mongoose.connection;

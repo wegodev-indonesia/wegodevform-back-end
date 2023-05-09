@@ -55,6 +55,7 @@ class AuthController {
                 user
             });
         } catch (err){
+            console.log(err)
             if(!err.code) { err.code = 500 }
             return res.status(err.code).json({ 
                 status: false,
